@@ -29,19 +29,28 @@ const Todo = () => {
 
   const addTodo = (data: any, e: any) => {
     e.preventDefault();
-    setTask(data);
-    const input: any = {
-      completed: false,
-      task: addTask,
-      id: generateNumber(5),
-    };
-    const existingTodos: any = JSON.parse(localStorage.getItem("todo") || "[]");
-
-    existingTodos.push(input);
-
-    localStorage.setItem("todo", JSON.stringify(existingTodos));
-
-    setTask("");
+    if(data?.length == 0){
+    
+    alert("Boshdike kuch likh to le")
+    
+    }else{
+      setTask(data);
+      const input: any = {
+        completed: false,
+        task: addTask,
+        id: generateNumber(5),
+      };
+      const existingTodos: any = JSON.parse(localStorage.getItem("todo") || "[]");
+  
+      existingTodos.push(input);
+  
+      localStorage.setItem("todo", JSON.stringify(existingTodos));
+  
+      setTask("");
+    
+    }
+   
+   
   };
 
   const handleGetTodos = () => {
