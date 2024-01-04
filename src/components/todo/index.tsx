@@ -31,7 +31,7 @@ const Todo = () => {
     e.preventDefault();
     if(data?.length == 0){
     
-    alert("Boshdike kuch likh to le")
+    alert("Task input can't be empty")
     
     }else{
       setTask(data);
@@ -95,7 +95,7 @@ const Todo = () => {
 
             <button
               type="submit"
-              className="m-2 rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+              className="cursor-pointer m-2 rounded-md bg-black px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-black/80 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
             >
               Add
             </button>
@@ -104,7 +104,7 @@ const Todo = () => {
 
         <div className="flex flex-row gap-36">
           <div
-            className={`text-md font-bold text-pretty  ${
+            className={`cursor-pointer text-md font-bold text-pretty  ${
               search === "all" ? "active" : ""
             }`}
             onClick={() => router.push("/?todo=all")}
@@ -112,7 +112,7 @@ const Todo = () => {
             All
           </div>
           <div
-            className={`text-md font-bold text-pretty ${
+            className={`cursor-pointer text-md font-bold text-pretty ${
               search === "active" ? "active" : ""
             } `}
             onClick={() => router.push("/?todo=active")}
@@ -120,7 +120,7 @@ const Todo = () => {
             Active
           </div>
           <div
-            className={`text-md font-bold text-pretty ${
+            className={`cursor-pointer text-md font-bold text-pretty ${
               search === "completed" ? "active" : ""
             }`}
             onClick={() => router.push("/?todo=completed")}
