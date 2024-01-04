@@ -3,6 +3,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Todo = () => {
+
+  useEffect(()=>{
+    router.push('/?todo=active')
+  
+  
+  },[])
   const [addTask, setTask] = useState("");
   const router = useRouter();
   const query = useSearchParams();
