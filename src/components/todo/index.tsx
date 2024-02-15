@@ -23,7 +23,12 @@ const Todo = () => {
     }
     return result;
   };
-
+  //get to do from localstorage----------
+  const GetTodoArray = () => JSON.parse(localStorage.getItem("todo") || "[]");
+  //set to do from localstorage----------
+  const StoreToDo = (data: any) => {
+    return localStorage.setItem("todo", JSON.stringify(data));
+  };
   const addTodo = (data: string, e: any) => {
     e.preventDefault();
     if (data?.trim()?.length == 0) {
@@ -35,20 +40,15 @@ const Todo = () => {
         task: addTask,
         id: generateNumber(5),
       };
-      const existingTodos: any = JSON.parse(
-        localStorage.getItem("todo") || "[]"
-      );
-
+      const existingTodos: any = GetTodoArray();
       existingTodos.push(input);
-
-      localStorage.setItem("todo", JSON.stringify(existingTodos));
-
+      StoreToDo(existingTodos);
       setTask("");
     }
   };
 
   const handleGetTodos = () => {
-    const getTasks: any = JSON.parse(localStorage.getItem("todo") || "[]");
+    const getTasks: any[] = JSON.parse(localStorage.getItem("todo") || "[]");
     setAllTask(getTasks);
     return getTasks;
   };
@@ -61,13 +61,21 @@ const Todo = () => {
 
   const clickFalse = (todoID: string) => {
     const existingTodos: any = JSON.parse(localStorage.getItem("todo") || "[]");
-    const res = existingTodos?.findIndex((item: any) => {
-      return item?.id === todoID;
-    });
+    const res = existingTodos?.findIndex((item: any) => item?.id === todoID);
     if (res !== -1) {
-      existingTodos[res].completed = true;
+      existingTodos[res].completed = !existingTodos[res].completed;
       localStorage.setItem("todo", JSON.stringify(existingTodos));
       handleGetTodos();
+    }
+  };
+
+  const RemoveFromCompleted = (ID: string) => {
+    const existingTodos: any[] = GetTodoArray();
+    const index = existingTodos.findIndex(({ id }) => id === ID);
+    if (index > -1) {
+      existingTodos.splice(index, 1);
+      setAllTask(() => existingTodos);
+      StoreToDo(existingTodos);
     }
   };
 
@@ -165,7 +173,7 @@ const Todo = () => {
                   value="Bike"
                   // onClick={() => clickFalse(i)}
                 /> */}
-                  <span>
+                  <span onClick={() => RemoveFromCompleted(data?.id)}>
                     <svg
                       height="22"
                       viewBox="0 0 48 48"
@@ -197,9 +205,10 @@ const Todo = () => {
                 key={i}
                 type="checkbox"
                 id="vehicle1"
-                name="vehicle1"
-                value="Bike"
-                // onClick={() => clickFalse(i)}
+                name={data?.task}
+                value={data?.task}
+                checked={data?.completed}
+                onClick={() => clickFalse(data?.id)}
               />
               <label htmlFor="vehicle1" key={i}>
                 {" "}
