@@ -3,12 +3,9 @@ import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 const Todo = () => {
-
-  useEffect(()=>{
-    router.push('/?todo=active')
-  
-  
-  },[])
+  useEffect(() => {
+    router.push("/?todo=active");
+  }, []);
   const [addTask, setTask] = useState("");
   const router = useRouter();
   const query = useSearchParams();
@@ -27,30 +24,27 @@ const Todo = () => {
     return result;
   };
 
-  const addTodo = (data: any, e: any) => {
+  const addTodo = (data: string, e: any) => {
     e.preventDefault();
-    if(data?.length == 0){
-    
-    alert("Task input can't be empty")
-    
-    }else{
+    if (data?.trim()?.length == 0) {
+      alert("Task input can't be empty");
+    } else {
       setTask(data);
       const input: any = {
         completed: false,
         task: addTask,
         id: generateNumber(5),
       };
-      const existingTodos: any = JSON.parse(localStorage.getItem("todo") || "[]");
-  
+      const existingTodos: any = JSON.parse(
+        localStorage.getItem("todo") || "[]"
+      );
+
       existingTodos.push(input);
-  
+
       localStorage.setItem("todo", JSON.stringify(existingTodos));
-  
+
       setTask("");
-    
     }
-   
-   
   };
 
   const handleGetTodos = () => {
@@ -135,7 +129,7 @@ const Todo = () => {
           allTask
             ?.filter((data: any) => !data?.completed)
             .map((data: any, i: any) => (
-              <div  key={i}>
+              <div key={i}>
                 <input
                   key={i}
                   type="checkbox"
@@ -147,7 +141,10 @@ const Todo = () => {
                     clickFalse(data?.id);
                   }}
                 />
-                <label htmlFor="vehicle1"    key={i}> {data?.task}</label>
+                <label htmlFor="vehicle1" key={i}>
+                  {" "}
+                  {data?.task}
+                </label>
                 <br></br>
               </div>
             ))}
@@ -156,7 +153,10 @@ const Todo = () => {
             {allTask
               ?.filter((data: any) => data?.completed)
               .map((data: any, i: any) => (
-                <div className=" flex flex-row text-left align-middle items-start"  key={i}>
+                <div
+                  className=" flex flex-row text-left align-middle items-start"
+                  key={i}
+                >
                   {/* <input
                   key={i}
                   type="checkbox"
@@ -192,7 +192,7 @@ const Todo = () => {
         {allTask &&
           search === "all" &&
           allTask.map((data: any, i: any) => (
-            <div  key={i}>
+            <div key={i}>
               <input
                 key={i}
                 type="checkbox"
@@ -201,7 +201,10 @@ const Todo = () => {
                 value="Bike"
                 // onClick={() => clickFalse(i)}
               />
-              <label htmlFor="vehicle1"    key={i}> {data?.task}</label>
+              <label htmlFor="vehicle1" key={i}>
+                {" "}
+                {data?.task}
+              </label>
               <br></br>
             </div>
           ))}
