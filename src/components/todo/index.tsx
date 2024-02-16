@@ -132,91 +132,95 @@ const Todo = () => {
         </div>
         {/* <hr  className="bg-red h-16 px-3 py-44 w-96 mx-auto"/> */}
 
-        {allTask &&
-          search === "active" &&
-          allTask
-            ?.filter((data: any) => !data?.completed)
-            .map((data: any, i: any) => (
-              <div key={i}>
-                <input
-                  key={i}
-                  type="checkbox"
-                  id={data.id}
-                  name={data?.task}
-                  value={data?.task}
-                  checked={data?.completed}
-                  onClick={() => {
-                    clickFalse(data?.id);
-                  }}
-                />
-                <label htmlFor="vehicle1" key={i}>
-                  {" "}
-                  {data?.task}
-                </label>
-                <br></br>
-              </div>
-            ))}
-        {allTask && search === "completed" && (
-          <div className="flex flex-col w-full items-start">
-            {allTask
-              ?.filter((data: any) => data?.completed)
-              .map((data: any, i: any) => (
-                <div
-                  className=" flex flex-row text-left align-middle items-start"
-                  key={i}
-                >
-                  {/* <input
-                  key={i}
-                  type="checkbox"
-                  id="vehicle1"
-                  name="vehicle1"
-                  value="Bike"
-                  // onClick={() => clickFalse(i)}
-                /> */}
-                  <span onClick={() => RemoveFromCompleted(data?.id)}>
-                    <svg
-                      height="22"
-                      viewBox="0 0 48 48"
-                      width="48"
-                      xmlns="http://www.w3.org/2000/svg"
+        {search == "active" ? (
+          <div className="h-auto w-[500px] border border-green-100 flex justify-center flex-col gap-4 p-8 shadow-md">
+            {allTask &&
+              search === "active" &&
+              allTask
+                ?.filter((data: any) => !data?.completed)
+                .map((data: any, i: any) => (
+                  <div key={i} className="capitalize">
+                    <input
+                      key={i}
+                      type="checkbox"
+                      id={data.id}
+                      name={data?.task}
+                      value={data?.task}
+                      checked={data?.completed}
+                      onClick={() => {
+                        clickFalse(data?.id);
+                      }}
+                    />
+                    <label htmlFor="vehicle1" key={i}>
+                      {" "}
+                      {data?.task}
+                    </label>
+                    <br></br>
+                  </div>
+                ))}
+          </div>
+        ) : null}
+
+        {search == "completed" ? (
+          <div className="h-auto w-[500px] border border-green-100 flex justify-center flex-col gap-4 p-8 shadow-md">
+            {allTask && search === "completed" && (
+              <div className="flex flex-col w-full items-start">
+                {allTask
+                  ?.filter((data: any) => data?.completed)
+                  .map((data: any, i: any) => (
+                    <div
+                      className=" flex flex-row text-left align-middle items-start capitalize"
+                      key={i}
                     >
-                      <path d="M12 38c0 2.21 1.79 4 4 4h16c2.21 0 4-1.79 4-4V14H12v24zM38 8h-7l-2-2H19l-2 2h-7v4h28V8z" />
-                      <path d="M0 0h48v48H0z" fill="none" key={data?.id} />
-                    </svg>
-                  </span>
-                  <label
-                    htmlFor="vehicle1"
-                    className="line-through text-green-600"
+                      <span onClick={() => RemoveFromCompleted(data?.id)}>
+                        <svg
+                          height="22"
+                          viewBox="0 0 48 48"
+                          width="48"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M12 38c0 2.21 1.79 4 4 4h16c2.21 0 4-1.79 4-4V14H12v24zM38 8h-7l-2-2H19l-2 2h-7v4h28V8z" />
+                          <path d="M0 0h48v48H0z" fill="none" key={data?.id} />
+                        </svg>
+                      </span>
+                      <label
+                        htmlFor="vehicle1"
+                        className="line-through text-green-600"
+                        key={i}
+                      >
+                        {" "}
+                        {data?.task}
+                      </label>
+                    </div>
+                  ))}
+              </div>
+            )}
+          </div>
+        ) : null}
+
+        {search == "all" ? (
+          <div className="h-auto w-[500px] border border-green-100 flex justify-center flex-col gap-4 p-8 shadow-md">
+            {allTask &&
+              search === "all" &&
+              allTask.map((data: any, i: any) => (
+                <div key={i} className="capitalize">
+                  <input
                     key={i}
-                  >
+                    type="checkbox"
+                    id="vehicle1"
+                    name={data?.task}
+                    value={data?.task}
+                    checked={data?.completed}
+                    onClick={() => clickFalse(data?.id)}
+                  />
+                  <label htmlFor="vehicle1" key={i}>
                     {" "}
                     {data?.task}
                   </label>
-                  <br></br>
                 </div>
               ))}
           </div>
-        )}
-        {allTask &&
-          search === "all" &&
-          allTask.map((data: any, i: any) => (
-            <div key={i}>
-              <input
-                key={i}
-                type="checkbox"
-                id="vehicle1"
-                name={data?.task}
-                value={data?.task}
-                checked={data?.completed}
-                onClick={() => clickFalse(data?.id)}
-              />
-              <label htmlFor="vehicle1" key={i}>
-                {" "}
-                {data?.task}
-              </label>
-              <br></br>
-            </div>
-          ))}
+        ) : null}
       </div>
     </>
   );
